@@ -8,4 +8,4 @@ class CityTemperature(models.Model):
     def __str__(self):
         return f"{self.city}: {self.temperature}°C"
 
-# Create your models here.
+

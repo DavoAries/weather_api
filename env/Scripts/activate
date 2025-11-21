@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\guill\OneDrive\Escritorio\API_WEATHER\env"
+VIRTUAL_ENV="C:\Users\guill\OneDrive\Escritorio\weather_api_project\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

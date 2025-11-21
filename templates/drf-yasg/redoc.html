@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ReDoc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #redoc { height: 100vh; }
+    #error { padding: 16px; color: #b00020; font-family: sans-serif; display: none; }
+    .hidden { display: none; }
+  </style>
+  <!-- Redoc v2 estable -->
+  <script src="https://cdn.jsdelivr.net/npm/redoc@2.1.0/bundles/redoc.standalone.min.js"></script>
+</head>
+<body>
+  <div id="error">No se pudo cargar el esquema OpenAPI. Verifique que /swagger.json devuelve JSON válido.</div>
+  <div id="redoc"></div>
+  <script>
+    (function() {
+      const specUrl = "{% url 'schema-json' %}";
+      // Chequeo previo: descarga el JSON y luego inicializa Redoc
+      fetch(specUrl, { headers: { 'Accept': 'application/json' } })
+        .then(async (res) => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const spec = await res.json();
+          Redoc.init(spec, {
+            scrollYOffset: 60,
+            expandResponses: "200,201",
+            hideHostname: true
+          }, document.getElementById('redoc'));
+        })
+        .catch((err) => {
+          document.getElementById('error').style.display = 'block';
+          console.error('Error cargando spec:', err);
+        });
+    })();
+  </script>
+</body>
+</html>
+
